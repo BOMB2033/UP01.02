@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Application</string>
+    <string name="n_hello_world">Тут написано:\nМы учимся в БТПИТ! вместо Hello, World</string>
+</resources>
