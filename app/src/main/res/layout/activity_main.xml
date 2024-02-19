@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:background="@drawable/background_stroke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/n_hello_world"
