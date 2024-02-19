@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Как я вижу это</string>
+    <string name="n_hello_world">Тут написано:\nМы студенты БТПИТ! вместо Hello, World</string>
+</resources>

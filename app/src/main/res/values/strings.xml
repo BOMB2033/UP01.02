@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Application</string>
-    <string name="n_hello_world">Тут написано:\nМы учимся в БТПИТ! вместо Hello, World</string>
+    <string name="app_name">How I see it</string>
+    <string name="n_hello_world">It says here:\nWe are studying at BTPIT! instead of Hello, World</string>
 </resources>
