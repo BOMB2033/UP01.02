@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Application" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="textColor">#000000</item>
+        <item name="metaColor">#606060</item>
+        <item name="color">#ffffff</item>
+        <item name="backgroundColor">#ffffff</item>
+
+        <item name="blackDyn">#000000</item>
+
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Application" parent="Base.Theme.Application" />
+</resources>
