@@ -6,6 +6,8 @@
         <item name="metaColor">#aeaeae</item>
         <item name="backgroundColor">#222222</item>
 
+        <item name="blackDyn">#FFFFFF</item>
+
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>

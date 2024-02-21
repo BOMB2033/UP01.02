@@ -6,9 +6,9 @@
     android:viewportHeight="24">
 
     <path
-        android:fillColor="?blackDyn"
+        android:fillColor="#FF0000"
         android:fillType="evenOdd"
-        android:strokeColor="?blackDyn"
+        android:strokeColor="#FF0000"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
