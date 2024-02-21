@@ -4,35 +4,48 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
+import com.fedorkasper.application.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
-    private var isLike = false
-    private var amountLike = 999
-    private var amountShare = 999
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        val binding = ActivityMain2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val buttonLike = findViewById<ImageButton>(R.id.buttonLike)
-        val buttonShare = findViewById<ImageButton>(R.id.buttonShare)
-        val textViewAmountLike = findViewById<TextView>(R.id.textViewAmountLike)
-        val textViewAmountShare = findViewById<TextView>(R.id.textViewAmountShare)
+        val post = Post(
+            0,
+            getText(R.string.header_post).toString(),
+            getText(R.string.content_post).toString(),
+            getText(R.string.dataTime_post).toString(),
+            999,
+            999,
+            false
+        )
+        with(binding){
+            textViewHeader.text = post.header
+            textViewContent.text = post.content
+            textViewDataTime.text = post.dateTime
+            textViewAmountLike.text = post.amountLikes.toString()
+            textViewAmountShare.text = post.amountShare.toString()
 
-        buttonLike.setOnClickListener {
-            if(isLike) {
-                amountLike--
-                buttonLike.setImageResource(R.drawable.heart_unpress)
-            } else {
-                amountLike++
+            if (post.isLike)
                 buttonLike.setImageResource(R.drawable.heart_press)
-            }
-            textViewAmountLike.text = convertToString(amountLike)
-            isLike = isLike.not()
-        }
 
-        buttonShare.setOnClickListener {
-            amountShare+=100
-            textViewAmountShare.text = convertToString(amountShare)
+            buttonLike.setOnClickListener {
+                if(post.isLike) {
+                    post.amountLikes--
+                    buttonLike.setImageResource(R.drawable.heart_unpress)
+                } else {
+                    post.amountLikes++
+                    buttonLike.setImageResource(R.drawable.heart_press)
+                }
+                textViewAmountLike.text = convertToString(post.amountLikes)
+                post.isLike = post.isLike.not()
+            }
+            buttonShare.setOnClickListener {
+                post.amountShare+=100
+                textViewAmountShare.text = convertToString(post.amountShare)
+            }
         }
     }
 
