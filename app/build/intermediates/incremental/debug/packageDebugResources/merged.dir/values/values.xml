@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="color" name="backgroundColor"/>
+    <attr format="color" name="blackDyn"/>
+    <attr format="color" name="color"/>
+    <attr format="color" name="metaColor"/>
+    <attr format="color" name="textColor"/>
+    <color name="black">#FF000000</color>
+    <color name="ic_launcher_background">#009BC9</color>
+    <color name="one_background">#4AFFAAAA</color>
+    <color name="transparent">#00000000</color>
+    <color name="two_background">#BCFF4646</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">How I see it</string>
+    <string name="can_t_open_image" translatable="false">Can\'t open Image</string>
+    <string name="content_post">Sunday, June 22, 1941\n
+The country has woken up peacefully\n
+On this June day,\n
+It just opened\n
+Her lilacs are in the park.\n
+Rejoicing in the sun and the world,\n
+Moscow greeted the morning.\n
+Suddenly they spread across the airwaves\n
+Memorable words...\n
+the voice is confident and strict\n
+The country recognized it immediately.\n
+On our doorstep in the morning\n
+The war broke out.\n
+N. Sidorenko</string>
+    <string name="dataTime_post">22 июня 1941 04:01</string>
+    <string name="happened_next">And here\'s what happened next, we\'ll find out now</string>
+    <string name="header_post">Sunday, June 22, 1941</string>
+    <string name="more_billion">more than a billion</string>
+    <string name="n_hello_world">It says here:\nWe are studying at BTPIT! instead of Hello, World</string>
+    <style name="Base.Theme.Application" parent="Theme.AppCompat.DayNight.NoActionBar">
+        
+        <item name="textColor">#000000</item>
+        <item name="metaColor">#606060</item>
+        <item name="color">#ffffff</item>
+        <item name="backgroundColor">#ffffff</item>
+
+        <item name="blackDyn">#000000</item>
+
+        
+    </style>
+    <style name="Theme.Application" parent="Base.Theme.Application"/>
+</resources>

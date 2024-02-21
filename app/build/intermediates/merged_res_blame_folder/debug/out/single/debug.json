@@ -1,0 +1,130 @@
+[
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_selector_background_buttons.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\selector_background_buttons.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-hdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_heart_unpress.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\heart_unpress.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_background_shadow.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\background_shadow.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_img_btpit_people.png.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\img_btpit_people.png"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_eye.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\eye.xml"
+    },
+    {
+        "merged": "com.fedorkasper.application.app-merged_res-31:/layout_activity_main2.xml.flat",
+        "source": "com.fedorkasper.application.app-main-33:/layout/activity_main2.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_share.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\share.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-mdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_background_stroke.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\background_stroke.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_logo_btpit.gif.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\logo_btpit.gif"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\drawable_heart_press.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\drawable\\heart_press.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\animator_zoom_buttom.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\animator\\zoom_buttom.xml"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-merged_res-31:\\layout_activity_main2.xml.flat",
+        "source": "C:\\Users\\FvK\\.gradle\\daemon\\8.2\\com.fedorkasper.application.app-main-33:\\layout\\activity_main2.xml"
+    }
+]
