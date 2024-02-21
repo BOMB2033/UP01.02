@@ -7,6 +7,8 @@ android {
     namespace = "com.fedorkasper.application"
     compileSdk = 34
 
+    buildFeatures.viewBinding = true
+
     defaultConfig {
         applicationId = "com.fedorkasper.application"
         minSdk = 24

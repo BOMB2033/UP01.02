@@ -1,8 +1,10 @@
 <resources>
+    <string name="can_t_open_image" translatable="false">Can\'t open Image</string>
+
     <string name="app_name">How I see it</string>
     <string name="n_hello_world">It says here:\nWe are studying at BTPIT! instead of Hello, World</string>
     <string name="happened_next">And here\'s what happened next, we\'ll find out now</string>
-    <string name="can_t_open_image" translatable="false">Can\'t open Image</string>
+
     <string name="poem">Sunday, June 22, 1941\n
 The country has woken up peacefully\n
 On this June day,\n
@@ -19,4 +21,6 @@ The war broke out.\n
 N. Sidorenko</string>
     <string name="Sunday_June_22_1941">Sunday, June 22, 1941</string>
     <string name="date">22 июня 1941 04:01</string>
+    <string name="more_billion">more than a billion</string>
+
 </resources>
