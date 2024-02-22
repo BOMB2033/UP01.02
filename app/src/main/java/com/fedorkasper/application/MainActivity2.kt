@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
@@ -30,6 +31,10 @@ class MainActivity2 : AppCompatActivity() {
 
             if (post.isLike)
                 buttonLike.setImageResource(R.drawable.heart_press)
+
+            textViewHeader.setOnClickListener {
+                Toast.makeText(applicationContext, "test", Toast.LENGTH_SHORT).show()
+            }
 
             buttonLike.setOnClickListener {
                 if(post.isLike) {
