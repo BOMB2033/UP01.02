@@ -32,10 +32,6 @@ class MainActivity2 : AppCompatActivity() {
             if (post.isLike)
                 buttonLike.setImageResource(R.drawable.heart_press)
 
-            textViewHeader.setOnClickListener {
-                Toast.makeText(applicationContext, "test", Toast.LENGTH_SHORT).show()
-            }
-
             buttonLike.setOnClickListener {
                 if(post.isLike) {
                     post.amountLikes--
@@ -57,11 +53,11 @@ class MainActivity2 : AppCompatActivity() {
     private fun convertToString(count:Int):String{
         return when(count){
             in 0..<1_000 -> count.toString()
-            1000 -> "1K"
-            in 999..<10_000 -> ((count/100).toFloat()/10).toString() + "K"
+            in 1000..<1_100-> "1K"
+            in 1_100..<10_000 -> ((count/100).toFloat()/10).toString() + "K"
             in 10_000..<1_000_000 -> (count/1_000).toString() + "K"
-            1_000_000 -> "1M"
-            in 999_999..<10_000_000 -> ((count/100_000).toFloat()/10).toString() + "M"
+            in 1_000_000..<1_100_000 -> "1M"
+            in 1_100_000..<10_000_000 -> ((count/100_000).toFloat()/10).toString() + "M"
             in 10_000_000..<1_000_000_000 -> (count/1_000_000).toString() + "M"
             else -> getString(R.string.more_billion)
         }
