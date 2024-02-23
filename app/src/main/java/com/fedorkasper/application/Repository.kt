@@ -5,45 +5,60 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 interface PostRepository {
-    fun get(): LiveData<Post>
-    fun like()
-    fun share()
+    fun getAll(): LiveData<List<Post>>
+    fun likeById(id:Int)
+    fun shareById(id: Int)
 }
 
 class PostRepositoryInMemoryImpl : PostRepository {
-    private var post = Post(
+    private var posts = listOf(
+        Post(
         id = 1,
-        header = "HEADER header",
-        content = "text text text text text text text text text " +
-                "text text text text text text text text text text " +
-                "text text text text text text text text text text " +
-                "text text text text text text text text text text " +
-                "text text text text text text text text text text " +
-                "text text text text text text text text text text text",
+        header = "Заголовок первого поста",
+        content = "Первый пост",
         dateTime = "01 январь 2024 в 59:59",
         isLike = false,
         amountLikes = 999,
         amountShares = 999
-    )
-    private val data = MutableLiveData(post)
+    ),
+        Post(
+            id = 2,
+            header = "Заголовок второго поста",
+            content = "Второй пост",
+            dateTime = "01 январь 2024 в 59:59",
+            isLike = false,
+            amountLikes = 999,
+            amountShares = 999
+        ))
+    private val data = MutableLiveData(posts)
 
-    override fun get(): LiveData<Post> = data
-    override fun like() {
-        if (post.isLike)
-            post.amountLikes--
-        else
-            post.amountLikes++
-        post = post.copy(isLike = !post.isLike)
-        data.value = post
+    override fun getAll(): LiveData<List<Post>> = data
+    override fun likeById(id:Int) {
+
+        posts = posts.map{
+            if(it.id != id) it else{
+                if (it.isLike)
+                    it.amountLikes--
+                else
+                    it.amountLikes++
+                it.copy(isLike = !it.isLike)
+            }
+        }
+        data.value = posts
     }
-    override fun share() {
-            post.amountShares+=10
-        data.value = post
+    override fun shareById(id:Int) {
+        posts = posts.map {
+            if(it.id != id)
+                it
+            else
+                it.copy(amountShares = it.amountShares + 10)
+        }
+        data.value = posts
     }
 }
 class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
-    val data = repository.get()
-    fun like() = repository.like()
-    fun share() = repository.share()
+    val data = repository.getAll()
+    fun likeById(id:Int) = repository.likeById(id)
+    fun shareById(id:Int) = repository.shareById(id)
 }

@@ -3,7 +3,9 @@ package com.fedorkasper.application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.GeneratedAdapter
 import com.fedorkasper.application.databinding.ActivityMain2Binding
+import com.fedorkasper.application.databinding.CardPostBinding
 
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,28 +13,12 @@ class MainActivity2 : AppCompatActivity() {
         val binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val postViewModel:PostViewModel by viewModels()
-        postViewModel.data.observe(this){post ->
-            with(binding){
-                textViewHeader.text = post.header
-                textViewContent.text = post.content
-                textViewDataTime.text = post.dateTime
-                textViewAmountLike.text = convertToString(post.amountLikes)
-                textViewAmountShare.text = convertToString(post.amountShares)
+        val viewModel: PostViewModel by viewModels()
+        val adapter: PostAdapter{
+            viewModel.likeById(it.id)
+        }
+        binding.container.adapter = adapter
 
-                if (post.isLike)
-                    buttonLike.setImageResource(R.drawable.heart_press)
-                else
-                    buttonLike.setImageResource(R.drawable.heart_unpress)
-
-            }
-        }
-        binding.buttonLike.setOnClickListener{
-            postViewModel.like()
-        }
-        binding.buttonShare.setOnClickListener{
-            postViewModel.share()
-        }
     }
 
     private fun convertToString(count:Int):String{
