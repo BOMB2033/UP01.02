@@ -2,9 +2,7 @@ package com.fedorkasper.application
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.viewModels
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
@@ -13,40 +11,27 @@ class MainActivity2 : AppCompatActivity() {
         val binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val post = Post(
-            0,
-            getText(R.string.header_post).toString(),
-            getText(R.string.content_post).toString(),
-            getText(R.string.dataTime_post).toString(),
-            999,
-            999,
-            false
-        )
-        with(binding){
-            textViewHeader.text = post.header
-            textViewContent.text = post.content
-            textViewDataTime.text = post.dateTime
-            textViewAmountLike.text = post.amountLikes.toString()
-            textViewAmountShare.text = post.amountShare.toString()
-
-            if (post.isLike)
-                buttonLike.setImageResource(R.drawable.heart_press)
-
-            buttonLike.setOnClickListener {
-                if(post.isLike) {
-                    post.amountLikes--
-                    buttonLike.setImageResource(R.drawable.heart_unpress)
-                } else {
-                    post.amountLikes++
-                    buttonLike.setImageResource(R.drawable.heart_press)
-                }
+        val postViewModel:PostViewModel by viewModels()
+        postViewModel.data.observe(this){post ->
+            with(binding){
+                textViewHeader.text = post.header
+                textViewContent.text = post.content
+                textViewDataTime.text = post.dateTime
                 textViewAmountLike.text = convertToString(post.amountLikes)
-                post.isLike = post.isLike.not()
+                textViewAmountShare.text = convertToString(post.amountShares)
+
+                if (post.isLike)
+                    buttonLike.setImageResource(R.drawable.heart_press)
+                else
+                    buttonLike.setImageResource(R.drawable.heart_unpress)
+
             }
-            buttonShare.setOnClickListener {
-                post.amountShare+=10
-                textViewAmountShare.text = convertToString(post.amountShare)
-            }
+        }
+        binding.buttonLike.setOnClickListener{
+            postViewModel.like()
+        }
+        binding.buttonShare.setOnClickListener{
+            postViewModel.share()
         }
     }
 

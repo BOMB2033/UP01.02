@@ -5,6 +5,6 @@ data class Post(
     val content:String,
     val dateTime:String,
     var amountLikes:Int,
-    var amountShare:Int,
+    var amountShares:Int,
     var isLike:Boolean = false
 )
