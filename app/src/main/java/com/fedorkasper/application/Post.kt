@@ -1,6 +1,6 @@
 package  com.fedorkasper.application
 data class Post(
-    val id:Long,
+    val id:Int,
     val header:String,
     val content:String,
     val dateTime:String,

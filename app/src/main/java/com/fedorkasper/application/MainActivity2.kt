@@ -5,46 +5,26 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
+    private val viewModel: PostViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val postViewModel:PostViewModel by viewModels()
-        postViewModel.data.observe(this){post ->
-            with(binding){
-                textViewHeader.text = post.header
-                textViewContent.text = post.content
-                textViewDataTime.text = post.dateTime
-                textViewAmountLike.text = convertToString(post.amountLikes)
-                textViewAmountShare.text = convertToString(post.amountShares)
-
-                if (post.isLike)
-                    buttonLike.setImageResource(R.drawable.heart_press)
-                else
-                    buttonLike.setImageResource(R.drawable.heart_unpress)
-
-            }
-        }
-        binding.buttonLike.setOnClickListener{
-            postViewModel.like()
-        }
-        binding.buttonShare.setOnClickListener{
-            postViewModel.share()
+        val adapter = PostAdapter(this)
+        binding.container.adapter = adapter
+        viewModel.data.observe(this){posts ->
+            adapter.list = posts
         }
     }
 
-    private fun convertToString(count:Int):String{
-        return when(count){
-            in 0..<1_000 -> count.toString()
-            in 1000..<1_100-> "1K"
-            in 1_100..<10_000 -> ((count/100).toFloat()/10).toString() + "K"
-            in 10_000..<1_000_000 -> (count/1_000).toString() + "K"
-            in 1_000_000..<1_100_000 -> "1M"
-            in 1_100_000..<10_000_000 -> ((count/100_000).toFloat()/10).toString() + "M"
-            in 10_000_000..<1_000_000_000 -> (count/1_000_000).toString() + "M"
-            else -> getString(R.string.more_billion)
-        }
+    override fun onClickLike(post: Post) {
+        viewModel.likeById(post.id)
     }
+    override fun onClickShare(post: Post) {
+        viewModel.shareById(post.id)
+    }
+
+
 }
