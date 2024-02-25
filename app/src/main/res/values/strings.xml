@@ -9,5 +9,6 @@
     <string name="header_post">Sunday, June 22, 1941</string>
     <string name="dataTime_post">22 июня 1941 04:01</string>
     <string name="more_billion">more than a billion</string>
+    <string name="delete">Delete</string>
 
 </resources>

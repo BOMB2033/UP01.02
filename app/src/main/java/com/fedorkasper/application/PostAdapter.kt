@@ -1,6 +1,7 @@
 package com.fedorkasper.application
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -35,6 +36,9 @@ class PostViewHolder(private val binding: CardPostBinding)
             buttonShare.setOnClickListener {
                 listener.onClickShare(post)
             }
+            buttonMore.setOnClickListener {
+                listener.onClickMore(post,it)
+            }
         }
     }
 }
@@ -43,7 +47,7 @@ class PostAdapter(
 ):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding)
+            return PostViewHolder(binding)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position:Int){
         val post = getItem(position)
@@ -53,6 +57,7 @@ class PostAdapter(
     interface Listener{
         fun onClickLike(post: Post)
         fun onClickShare(post: Post)
+        fun onClickMore(post:Post, view: View)
     }
 }
 private fun convertToString(count:Int):String{
