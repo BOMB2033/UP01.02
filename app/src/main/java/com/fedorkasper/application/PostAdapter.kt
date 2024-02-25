@@ -2,46 +2,53 @@ package com.fedorkasper.application
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fedorkasper.application.databinding.CardPostBinding
+class PostDiffCallback : DiffUtil.ItemCallback<Post>()
+{
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.id==newItem.id
+    }
 
-class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-    var list = emptyList<Post>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-    class PostViewHolder(
-        private val binding: CardPostBinding
-    ):RecyclerView.ViewHolder(binding.root) {
-        fun bind(post: Post,listener: Listener) {
-            binding.apply {
-                textViewHeader.text = post.header
-                textViewDataTime.text = post.dateTime
-                textViewContent.text = post.content
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return  oldItem == newItem
+    }
 
-                textViewAmountLike.text = convertToString(post.amountLikes)
-                textViewAmountShare.text = convertToString(post.amountShares)
+}
+class PostViewHolder(private val binding: CardPostBinding)
+    :RecyclerView.ViewHolder(binding.root) {
+    fun bind(post: Post,listener: PostAdapter.Listener) {
+        binding.apply {
+            textViewHeader.text = post.header
+            textViewDataTime.text = post.dateTime
+            textViewContent.text = post.content
 
-                buttonLike.setImageResource(if (post.isLike) R.drawable.heart_press else R.drawable.heart_unpress)
-                buttonLike.setOnClickListener {
-                    listener.onClickLike(post)
-                }
-                buttonShare.setOnClickListener {
-                    listener.onClickShare(post)
-                }
+            textViewAmountLike.text = convertToString(post.amountLikes)
+            textViewAmountShare.text = convertToString(post.amountShares)
+
+            buttonLike.setImageResource(if (post.isLike) R.drawable.heart_press else R.drawable.heart_unpress)
+            buttonLike.setOnClickListener {
+                listener.onClickLike(post)
+            }
+            buttonShare.setOnClickListener {
+                listener.onClickShare(post)
             }
         }
     }
+}
+class PostAdapter(
+    private val listener: Listener
+):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position:Int){
-        val post = list[position]
+        val post = getItem(position)
         holder.bind(post, listener)
     }
-    override fun getItemCount() :Int = list. size
 
     interface Listener{
         fun onClickLike(post: Post)
