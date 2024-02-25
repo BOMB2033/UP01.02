@@ -1,5 +1,6 @@
 package com.fedorkasper.application
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ class PostViewHolder(private val binding: CardPostBinding)
     fun bind(post: Post,listener: PostAdapter.Listener) {
         binding.apply {
             textViewHeader.text = post.header
-            textViewDataTime.text = post.dateTime
+            textViewDataTime.text = post.dateTime.toString().split("GMT")[0]
             textViewContent.text = post.content
 
             textViewAmountLike.text = convertToString(post.amountLikes)
@@ -45,6 +46,7 @@ class PostViewHolder(private val binding: CardPostBinding)
 class PostAdapter(
     private val listener: Listener
 ):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return PostViewHolder(binding)
