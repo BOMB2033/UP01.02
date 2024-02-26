@@ -1,5 +1,6 @@
 package com.fedorkasper.application
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.fedorkasper.application.databinding.LayoutPostAddBinding
 class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
     private val postViewModel: PostViewModel by viewModels()
     private val layoutViewModel:LayoutViewModel by viewModels()
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMain2Binding.inflate(layoutInflater)
