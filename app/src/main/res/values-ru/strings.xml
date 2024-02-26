@@ -8,5 +8,6 @@
     <string name="dataTime_post">Только что</string>
     <string name="more_billion">более млрд</string>
     <string name="delete">Удалить</string>
+    <string name="todo">TODO</string>
 
 </resources>
