@@ -10,7 +10,13 @@ interface PostRepository {
     fun likeById(id:Int)
     fun shareById(id: Int)
     fun removeById(id: Int)
-    fun save(post: Post)
+    fun addPost(post: Post)
+    fun editById(id: Int, header: String, content: String)
+}
+interface OnInteractionListener{
+    fun onLike(post: Post){}
+    fun onEdit(post: Post){}
+    fun onRemove(post: Post){}
 }
 
 class PostRepositoryInMemoryImpl : PostRepository {
@@ -86,10 +92,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     }
 
-    override fun save(post: Post) {
+    override fun addPost(post: Post) {
         posts = listOf(
             post.copy(
-                id = nextId(posts),
+                id = 0,
                 dateTime = Calendar.getInstance().time,
                 amountLikes = 0,
                 amountShares = 0,
@@ -98,18 +104,20 @@ class PostRepositoryInMemoryImpl : PostRepository {
         )+ posts
         data.value = posts
     }
-}
-fun nextId(posts:List<Post>):Int
-{
-    var id = 1
-    posts.forEach{it1->
-        posts.forEach{
-            if (it.id==id) id=it.id+1
-        }
-    }
 
-    return id
+    override fun editById(id: Int, header: String, content: String) {
+        posts = posts.map {
+            if(it.id != id)
+                it
+            else {
+                if (it.id == 0 ) it.id = nextId(posts)
+                it.copy(header = header, content = content)
+            }
+        }
+        data.value = posts
+    }
 }
+
 private val empty = Post(
     0,
     "",
@@ -123,11 +131,14 @@ class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
     val data = repository.getAll()
     private val edited = MutableLiveData(empty)
-    fun save(){
+    fun addPost(){
         edited.value?.let {
-            repository.save(it)
+            repository.addPost(it)
         }
-        edited.value = empty
+            edited.value = empty
+    }
+    fun editById(id: Int,header:String,content:String){
+        repository.editById(id,header,content)
     }
     fun changeContent(header:String,content:String){
         edited.value?.let {
@@ -138,4 +149,14 @@ class PostViewModel : ViewModel() {
     fun likeById(id:Int) = repository.likeById(id)
     fun shareById(id:Int) = repository.shareById(id)
     fun removeById(id:Int) = repository.removeById(id)
+}
+fun nextId(posts:List<Post>):Int{
+    var id = 1
+    posts.forEach{it1->
+        posts.forEach{
+            if (it.id==id) id=it.id+1
+        }
+    }
+
+    return id
 }

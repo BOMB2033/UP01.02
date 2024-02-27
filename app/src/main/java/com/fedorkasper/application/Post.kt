@@ -3,9 +3,9 @@ package  com.fedorkasper.application
 import java.util.Date
 
 data class Post(
-    val id:Int,
-    val header:String,
-    val content:String,
+    var id:Int,
+    var header:String,
+    var content:String,
     val dateTime: Date,
     var amountLikes:Int,
     var amountShares:Int,

@@ -9,5 +9,6 @@
     <string name="more_billion">более млрд</string>
     <string name="delete">Удалить</string>
     <string name="todo">TODO</string>
+    <string name="edit">Редактировать</string>
 
 </resources>

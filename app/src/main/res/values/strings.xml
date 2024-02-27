@@ -11,5 +11,6 @@
     <string name="more_billion">more than a billion</string>
     <string name="delete">Delete</string>
     <string name="todo">TODO</string>
+    <string name="edit">Edit</string>
 
 </resources>

@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fedorkasper.application.databinding.CardPostBinding
-class PostDiffCallback : DiffUtil.ItemCallback<Post>()
-{
+class PostDiffCallback : DiffUtil.ItemCallback<Post>(){
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem.id==newItem.id
     }
@@ -24,8 +23,10 @@ class PostViewHolder(private val binding: CardPostBinding)
     fun bind(post: Post,listener: PostAdapter.Listener) {
         binding.apply {
             textViewHeader.text = post.header
+            editTextHeader.setText(post.header)
             textViewDataTime.text = post.dateTime.toString().split("GMT")[0]
             textViewContent.text = post.content
+            editTextContent.setText(post.content)
 
             textViewAmountLike.text = convertToString(post.amountLikes)
             textViewAmountShare.text = convertToString(post.amountShares)
@@ -38,8 +39,15 @@ class PostViewHolder(private val binding: CardPostBinding)
                 listener.onClickShare(post)
             }
             buttonMore.setOnClickListener {
-                listener.onClickMore(post,it)
+                listener.onClickMore(post,it,binding)
             }
+            buttonCancel.setOnClickListener {
+                listener.cancelEditPost(post,binding)
+            }
+            buttonSave.setOnClickListener {
+                listener.saveEditPost(post,binding)
+            }
+            if (post.id==0) listener.editModeOn(binding)
         }
     }
 }
@@ -59,7 +67,10 @@ class PostAdapter(
     interface Listener{
         fun onClickLike(post: Post)
         fun onClickShare(post: Post)
-        fun onClickMore(post:Post, view: View)
+        fun onClickMore(post:Post, view: View,binding: CardPostBinding)
+        fun cancelEditPost(post:Post,binding: CardPostBinding)
+        fun saveEditPost(post:Post, binding: CardPostBinding)
+        fun editModeOn(binding: CardPostBinding)
     }
 }
 private fun convertToString(count:Int):String{
