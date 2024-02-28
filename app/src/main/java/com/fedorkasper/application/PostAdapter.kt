@@ -1,5 +1,6 @@
 package com.fedorkasper.application
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class PostViewHolder(private val binding: CardPostBinding)
 class PostAdapter(
     private val listener: Listener
 ):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return PostViewHolder(binding)
