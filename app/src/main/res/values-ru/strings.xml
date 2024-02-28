@@ -10,5 +10,7 @@
     <string name="delete">Удалить</string>
     <string name="todo">TODO</string>
     <string name="edit">Редактировать</string>
+    <string name="add_link">Добавьте ссылку</string>
+    <string name="write_content">Впишите основной контент</string>
 
 </resources>
