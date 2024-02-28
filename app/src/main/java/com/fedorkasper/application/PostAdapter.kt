@@ -38,8 +38,8 @@ class PostViewHolder(private val binding: CardPostBinding)
             buttonShare.setOnClickListener {
                 listener.onClickShare(post)
             }
-            buttonMore.setOnClickListener {
-                listener.onClickMore(post,it,binding)
+            buttonMore.setOnClickListener { //Устанавливаю слушатель на три точки
+                listener.onClickMore(post,it,binding) //Вызываю функцию из MainActivity
             }
             buttonCancel.setOnClickListener {
                 listener.cancelEditPost(post,binding)

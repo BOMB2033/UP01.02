@@ -39,23 +39,23 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
     override fun onClickShare(post: Post) {
         postViewModel.shareById(post.id)
     }
-    override fun onClickMore(post:Post, view: View, binding: CardPostBinding) {
+    override fun onClickMore(post:Post, view: View, binding: CardPostBinding) { //Собыите нажатие на кнопку меню
 
-        val popupMenu = PopupMenu(this,view)
+        val popupMenu = PopupMenu(this,view) //Объявление объекта меню
 
-        popupMenu.inflate(R.menu.popup_menu_post)
+        popupMenu.inflate(R.menu.popup_menu_post) //Указываю на каком лайоуте она будет показываться
 
-        popupMenu.setOnMenuItemClickListener {
-            if (it.itemId == R.id.menu_item_delete) {
-                postViewModel.removeById(post.id)
+        popupMenu.setOnMenuItemClickListener { //Слушатель нажиманий на итемы
+            when(it.itemId)
+            {
+                R.id.menu_item_delete -> postViewModel.removeById(post.id) //Удаление
+                R.id.menu_item_edit -> editModeOn(binding) //Редактирование
             }
-            if (it.itemId == R.id.menu_item_edit) {
-                editModeOn(binding)
-            }
-            true
+            true //Просто хз, ноу комент
+
         }
 
-        popupMenu.show()
+        popupMenu.show() // Показываю менюшку
 
     }
     override fun editModeOn(binding: CardPostBinding) {

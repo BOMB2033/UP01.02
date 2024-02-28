@@ -9,5 +9,6 @@ data class Post(
     val dateTime: Date,
     var amountLikes:Int,
     var amountShares:Int,
-    var isLike:Boolean
+    var isLike:Boolean,
+
 )
