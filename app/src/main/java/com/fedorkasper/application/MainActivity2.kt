@@ -1,5 +1,6 @@
 package com.fedorkasper.application
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.core.view.get
+import com.bumptech.glide.Glide
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 import com.fedorkasper.application.databinding.CardPostBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -20,6 +23,7 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMain2Binding.inflate(layoutInflater)
+
 
         setContentView(binding.root)
         intent?.let {
@@ -39,10 +43,11 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
             postViewModel.addPost(text)
             it.action = ""
         }
+
+
         val adapter = PostAdapter(this)
         binding.buttonAddPost.setOnClickListener{
             postViewModel.addPost("")
-
             binding.container.smoothScrollToPosition(-0)
         }
         binding.container.adapter = adapter
@@ -58,7 +63,7 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
 
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,post.content)
+            putExtra(Intent.EXTRA_TEXT,post.header+"\n"+post.content+"\n"+post.url)
             type = "text/plain"
         }
 
@@ -91,10 +96,15 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
             editTextHeader.visibility = View.VISIBLE
             textViewHeader.visibility = View.INVISIBLE
 
+
+
             if (content!="")
                 editTextContent.setText(content)
             editTextContent.visibility = View.VISIBLE
             textViewContent.visibility = View.INVISIBLE
+
+            editTextContentURL.visibility = View.VISIBLE
+            textViewContentURL.visibility = View.INVISIBLE
 
             constraintEdit.visibility = View.VISIBLE
             constraintLayoutLikeShareSees.visibility = View.GONE
@@ -110,17 +120,28 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
             editTextContent.visibility = View.INVISIBLE
             textViewContent.visibility = View.VISIBLE
 
+            editTextContentURL.visibility = View.INVISIBLE
+            textViewContentURL.visibility = View.VISIBLE
+
             constraintEdit.visibility = View.GONE
             constraintLayoutLikeShareSees.visibility = View.VISIBLE
         }
         if(binding.editTextHeader.text.toString() == "" && binding.editTextContent.text.toString() == "")
             postViewModel.removeById(post.id)
     }
+
     override fun saveEditPost(post: Post, binding: CardPostBinding) {
+        with(binding)
+        {
             postViewModel.editById(
                 post.id,
                 binding.editTextHeader.text.toString(),
-                binding.editTextContent.text.toString())
+                binding.editTextContent.text.toString(),
+                binding.editTextContentURL.text.toString()
+            )
+        }
+
         cancelEditPost(post,binding)
     }
+
 }

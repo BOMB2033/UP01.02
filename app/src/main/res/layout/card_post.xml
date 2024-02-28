@@ -62,10 +62,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
-        android:id="@+id/frameContent"
+        android:id="@+id/FrameLayoutContentText"
         android:layout_width="match_parent"
-        android:background="@drawable/background_shadow_only_bottom"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,93 +82,143 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:textSize="15sp"
+            android:hint="@string/write_content"
             android:text="@string/content_post"
             android:layout_marginHorizontal="5dp"
             android:padding="10dp"/>
     </FrameLayout>
+    <FrameLayout
+        android:id="@+id/FrameLayoutContentURL"
+        android:layout_width="match_parent"
+        android:background="@drawable/background_shadow_only_bottom"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FrameLayoutContentText">
+        <TextView android:id="@+id/textViewContentURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColorLink="@color/textLinkPress"
+            android:textColor="@color/textLink"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="5dp"
+            android:padding="10dp"/>
+        <EditText android:id="@+id/editTextContentURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="15sp"
+            android:hint="@string/add_link"
+            android:text=""
+            android:layout_marginHorizontal="5dp"
+            android:padding="10dp"/>
+    </FrameLayout>
 
+    <ImageView
+        android:id="@+id/imageViewImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_btpit_people"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FrameLayoutContentURL" />
+    <ImageButton
+        android:id="@+id/imageButtonPlay"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:padding="40dp"
+        android:stateListAnimator="@animator/zoom_buttom"
+        android:scaleType="centerCrop"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_play"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewImage"
+        app:layout_constraintStart_toStartOf="@+id/imageViewImage"
+        app:layout_constraintTop_toTopOf="@+id/imageViewImage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewImage"/>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageViewContent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@drawable/img_btpit_people"-->
-<!--        android:layout_marginHorizontal="10dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/textViewContent" />-->
-    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintLayoutLikeShareSees"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutLikeShareSees"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_shadow_only_top"
-        app:layout_constraintTop_toBottomOf="@id/frameContent"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/imageViewImage">
 
-        <ImageButton android:id="@+id/buttonLike"
+        <ImageButton
+            android:id="@+id/buttonLike"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/heart_unpress"
             android:background="#00FFFFFF"
             android:padding="0dp"
+            android:src="@drawable/heart_unpress"
             android:stateListAnimator="@animator/zoom_buttom"
 
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
-        <TextView android:id="@+id/textViewAmountLike"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewAmountLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="999"
             android:layout_marginStart="-7dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="999"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonLike"/>
+            app:layout_constraintStart_toEndOf="@id/buttonLike"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton android:id="@+id/buttonShare"
+        <ImageButton
+            android:id="@+id/buttonShare"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/share"
-            android:background="#00FFFFFF"
-            android:stateListAnimator="@animator/zoom_buttom"
-            android:padding="0dp"
             android:layout_marginStart="20dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="#00FFFFFF"
+            android:padding="0dp"
+            android:src="@drawable/share"
+            android:stateListAnimator="@animator/zoom_buttom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/textViewAmountLike"
-            />
-        <TextView android:id="@+id/textViewAmountShare"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewAmountShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="999"
             android:layout_marginStart="-7dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="999"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonShare"/>
+            app:layout_constraintStart_toEndOf="@id/buttonShare"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageView android:id="@+id/imageViewSee"
+        <ImageView
+            android:id="@+id/imageViewSee"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/eye"
             android:background="#00FFFFFF"
             android:padding="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/eye"
 
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_view_amount_views"
-            />
-        <TextView android:id="@+id/text_view_amount_views"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_amount_views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4.1K"
             android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="4.1K"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintEdit"
         android:layout_width="match_parent"

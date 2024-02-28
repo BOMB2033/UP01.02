@@ -1,10 +1,17 @@
 package com.fedorkasper.application
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

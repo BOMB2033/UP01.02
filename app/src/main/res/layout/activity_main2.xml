@@ -40,6 +40,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/todo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/container"
         android:layout_width="match_parent"

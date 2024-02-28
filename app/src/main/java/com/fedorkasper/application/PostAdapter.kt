@@ -1,13 +1,20 @@
 package com.fedorkasper.application
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.fedorkasper.application.databinding.CardPostBinding
+import com.google.android.material.snackbar.Snackbar
+
+
 class PostDiffCallback : DiffUtil.ItemCallback<Post>(){
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem.id==newItem.id
@@ -37,6 +44,39 @@ class PostViewHolder(private val binding: CardPostBinding)
 
             buttonLike.setImageResource(if (post.isLike) R.drawable.heart_press else R.drawable.heart_unpress)
 
+            if (post.url!=""){
+                Glide.with(binding.root.context)
+                    .load(getURLImageVideo(post.url))
+                    .into(imageViewImage)
+                imageViewImage.visibility = View.VISIBLE
+                imageButtonPlay.visibility = View.VISIBLE
+                textViewContentURL.visibility = View.VISIBLE
+                textViewContentURL.text = post.url
+                editTextContentURL.setText(post.url)
+                imageButtonPlay.setOnClickListener{
+                    val intent = Intent()
+                    intent.setAction(Intent.ACTION_VIEW)
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE)
+                    if (!post.url.startsWith("https://")){
+                        Snackbar.make(binding.root,"Ссылка должна начинаться с \"https://\" \n" +
+                                "Так безопаснее будет",Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    }
+                    intent.setData(Uri.parse(post.url))
+                    binding.root.context.startActivity(intent)
+                }
+
+
+            }
+            else{
+                imageViewImage.visibility = View.GONE
+                imageButtonPlay.visibility = View.GONE
+                textViewContentURL.visibility = View.GONE
+                editTextContentURL.setText("")
+
+            }
+            imageViewIcon.setImageResource(post.icon)
+
             buttonLike.setOnClickListener {
                 listener.onClickLike(post)
             }
@@ -57,13 +97,20 @@ class PostViewHolder(private val binding: CardPostBinding)
         }
     }
 }
+
+@Suppress("SpellCheckingInspection")
+fun getURLImageVideo(url:String):String{
+    return  "https://img.youtube.com/vi/${if(url.split("v=").lastIndex == 1) url.split("v=")[1]
+    else url.split("?si")[0].split("/").last()}/sddefault.jpg"
+
+}
 class PostAdapter(
-    private val listener: Listener
+    private val listener: Listener,
 ):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PostViewHolder(binding)
+        return PostViewHolder(binding)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position:Int){
         val post = getItem(position)

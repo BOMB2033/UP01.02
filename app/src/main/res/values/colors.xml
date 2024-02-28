@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="one_background">#4AFFAAAA</color>
     <color name="two_background">#BCFF4646</color>
+    <color name="textLink">#1C7BC6</color>
+    <color name="textLinkPress">#135C97</color>
     <color name="transparent">#00000000</color>
 
 </resources>

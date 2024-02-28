@@ -12,53 +12,11 @@ interface PostRepository {
     fun shareById(id: Int)
     fun removeById(id: Int)
     fun addPost(post: Post,string: String)
-    fun editById(id: Int, header: String, content: String)
+    fun editById(id: Int, header: String, content: String, url:String)
 }
 
 class PostRepositoryInMemoryImpl : PostRepository {
-    private var posts = listOf(
-        Post(
-        id = 2,
-        header = "Что такое Binding",
-        content = "Data Binding — это процесс интеграции представлений в XML-макете с объектами данных.\n" +
-                "\n" +
-                "Преимущества использования библиотеки Data Binding:\n" +
-                "\n" +
-                "— Можно сократить количество вызовов findViewById и повысить производительность приложения;\n" +
-                "— Помогает избавиться от утечек памяти или исключений нулевого указателя;\n" +
-                "— Использует декларативный формат, который является более адаптивным;\n" +
-                "— Повышает производительность разработчика за счёт более короткого, простого для понимания и более поддерживаемого кода.\n" +
-                "Для настройки проекта на использование Data Binding необходимо:\n" +
-                "   1.Объявить библиотеку в файле build.gradle на уровне приложения.\n" +
-                "   2.Преобразовать XML-макеты в макеты Data Binding, следуя указанным шагам:\n" +
-                "\n" +
-                "— Объявить тег <layout>, который будет заключать существующий файл макета на корневом уровне;\n" +
-                "— Объявить переменные под тегом <data>, который будет находиться под тегом <layout>;\n" +
-                "— Объявить необходимые выражения для привязки данных внутри элементов представления.",
-        dateTime = Calendar.getInstance().time,
-            amountLikes = randomNumb(),
-            amountShares = randomNumb(),
-            amountViews = randomNumb(),
-            isLike = false,
-    ),
-        Post(
-            id = 1,
-            header = "Адаптеры в Android",
-            content = "Адаптеры в Android упрощают связывание данных с элементом управления. Они используются при работе с виджетами, которые дополняют android.widget.AdapterView: ListView, ExpandableListView, GridView, Spinner, Gallery, а также в активности ListActivity и др.\n" +
-                    "\n" +
-                    "Примеры готовых адаптеров:\n" +
-                    "   ArrayAdapter<T> — предназначен для работы с ListView.\n" +
-                    "   ListAdapter — адаптер между ListView и данными.\n" +
-                    "   SpinnerAdapter — адаптер для связки данных с элементом Spinner.\n" +
-                    "   SimpleAdapter — адаптер, позволяющий заполнить данными список более сложной структуры.\n" +
-                    "   Если вам нужен собственный адаптер, в Android есть абстрактный класс BaseAdapter, который можно расширить.",
-            dateTime = Calendar.getInstance().time,
-            amountLikes = randomNumb(),
-            amountShares = randomNumb(),
-            amountViews = randomNumb(),
-            isLike = false,
-
-        ))
+    private var posts = getPosts()
     private val data = MutableLiveData(posts)
 
     override fun getAll(): LiveData<List<Post>> = data
@@ -106,41 +64,32 @@ class PostRepositoryInMemoryImpl : PostRepository {
         data.value = posts
     }
 
-    override fun editById(id: Int, header: String, content: String) {
+    override fun editById(id: Int, header: String, content: String, url: String) {
         posts = posts.map {
             if(it.id != id)
                 it
             else {
                 if (it.id == 0 ) it.id = nextId(posts)
-                it.copy(header = header, content = content)
+                it.copy(header = header, content = content, url = url)
             }
         }
         data.value = posts
     }
 }
 
-private val empty = Post(
-    0,
-    "",
-    "",
-    Calendar.getInstance().time,
-    0,
-    0,
-    0,
-    false
-)
+
 class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
     val data = repository.getAll()
-    private val edited = MutableLiveData(empty)
+    private val edited = MutableLiveData(getEmptyPost())
     fun addPost(string: String){
         edited.value?.let {
             repository.addPost(it,string)
         }
-            edited.value = empty
+            edited.value = getEmptyPost()
     }
-    fun editById(id: Int,header:String,content:String){
-        repository.editById(id,header,content)
+    fun editById(id: Int,header:String,content:String,url:String){
+        repository.editById(id,header,content,url)
     }
     fun likeById(id:Int) = repository.likeById(id)
     fun shareById(id:Int) = repository.shareById(id)
