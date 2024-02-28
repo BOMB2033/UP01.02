@@ -4,19 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.Calendar
+import kotlin.random.Random
 
 interface PostRepository {
     fun getAll(): LiveData<List<Post>>
     fun likeById(id:Int)
     fun shareById(id: Int)
     fun removeById(id: Int)
-    fun addPost(post: Post)
+    fun addPost(post: Post,string: String)
     fun editById(id: Int, header: String, content: String)
-}
-interface OnInteractionListener{
-    fun onLike(post: Post){}
-    fun onEdit(post: Post){}
-    fun onRemove(post: Post){}
 }
 
 class PostRepositoryInMemoryImpl : PostRepository {
@@ -40,9 +36,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 "— Объявить переменные под тегом <data>, который будет находиться под тегом <layout>;\n" +
                 "— Объявить необходимые выражения для привязки данных внутри элементов представления.",
         dateTime = Calendar.getInstance().time,
-        isLike = false,
-        amountLikes = 1599,
-        amountShares = 597
+            amountLikes = randomNumb(),
+            amountShares = randomNumb(),
+            amountViews = randomNumb(),
+            isLike = false,
     ),
         Post(
             id = 1,
@@ -56,9 +53,11 @@ class PostRepositoryInMemoryImpl : PostRepository {
                     "   SimpleAdapter — адаптер, позволяющий заполнить данными список более сложной структуры.\n" +
                     "   Если вам нужен собственный адаптер, в Android есть абстрактный класс BaseAdapter, который можно расширить.",
             dateTime = Calendar.getInstance().time,
+            amountLikes = randomNumb(),
+            amountShares = randomNumb(),
+            amountViews = randomNumb(),
             isLike = false,
-            amountLikes = 999,
-            amountShares = 5478
+
         ))
     private val data = MutableLiveData(posts)
 
@@ -92,16 +91,18 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     }
 
-    override fun addPost(post: Post) {
+    override fun addPost(post: Post,string: String) {
         posts = listOf(
             post.copy(
                 id = 0,
                 dateTime = Calendar.getInstance().time,
-                amountLikes = 0,
-                amountShares = 0,
+                content = string,
+                amountLikes = randomNumb(),
+                amountShares = randomNumb(),
+                amountViews = randomNumb(),
                 isLike = false
             )
-        )+ posts
+        ) + posts
         data.value = posts
     }
 
@@ -125,26 +126,21 @@ private val empty = Post(
     Calendar.getInstance().time,
     0,
     0,
+    0,
     false
 )
 class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
     val data = repository.getAll()
     private val edited = MutableLiveData(empty)
-    fun addPost(){
+    fun addPost(string: String){
         edited.value?.let {
-            repository.addPost(it)
+            repository.addPost(it,string)
         }
             edited.value = empty
     }
     fun editById(id: Int,header:String,content:String){
         repository.editById(id,header,content)
-    }
-    fun changeContent(header:String,content:String){
-        edited.value?.let {
-            if (it.header == header.trim()) return
-            edited.value = it.copy(content = content.trim(),header = header.trim())
-        }
     }
     fun likeById(id:Int) = repository.likeById(id)
     fun shareById(id:Int) = repository.shareById(id)
@@ -152,11 +148,22 @@ class PostViewModel : ViewModel() {
 }
 fun nextId(posts:List<Post>):Int{
     var id = 1
-    posts.forEach{it1->
+    posts.forEach{ _ ->
         posts.forEach{
             if (it.id==id) id=it.id+1
         }
     }
 
     return id
+}
+
+fun randomNumb():Int
+{
+    return when (Random.nextInt(1,3))
+    {
+        1 -> Random.nextInt(0,1_000)
+        2 -> Random.nextInt(1_000,1_000_000)
+        3 -> Random.nextInt(1_000_000,1_000_000_000)
+        else -> Random.nextInt(0, Int.MAX_VALUE)
+    }
 }

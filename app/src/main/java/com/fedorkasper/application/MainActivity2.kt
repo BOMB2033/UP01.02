@@ -1,5 +1,6 @@
 package com.fedorkasper.application
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import androidx.activity.viewModels
 import androidx.core.view.get
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 import com.fedorkasper.application.databinding.CardPostBinding
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
@@ -19,15 +22,29 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
         val binding = ActivityMain2Binding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        intent?.let {
+            if (it.action != Intent.ACTION_SEND){
+                return@let
+            }
+
+            val text = it.getStringExtra(Intent.EXTRA_TEXT)
+            if(text.isNullOrBlank())
+            {
+                Snackbar.make(binding.root, "Пусто лол", BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction("Окей"){
+                        finish()
+                    }.show()
+                return@let
+            }
+            postViewModel.addPost(text)
+            it.action = ""
+        }
         val adapter = PostAdapter(this)
         binding.buttonAddPost.setOnClickListener{
-            postViewModel.addPost()
+            postViewModel.addPost("")
 
             binding.container.smoothScrollToPosition(-0)
         }
-
-
-
         binding.container.adapter = adapter
         postViewModel.data.observe(this){ posts ->
             adapter.submitList( posts)
@@ -38,6 +55,16 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
     }
     override fun onClickShare(post: Post) {
         postViewModel.shareById(post.id)
+
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT,post.content)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(intent, "Поделиться")
+        startActivity(shareIntent)
+
     }
     override fun onClickMore(post:Post, view: View, binding: CardPostBinding) { //Собыите нажатие на кнопку меню
 
@@ -49,7 +76,7 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
             when(it.itemId)
             {
                 R.id.menu_item_delete -> postViewModel.removeById(post.id) //Удаление
-                R.id.menu_item_edit -> editModeOn(binding) //Редактирование
+                R.id.menu_item_edit -> editModeOn(binding,"") //Редактирование
             }
             true //Просто хз, ноу комент
 
@@ -58,12 +85,14 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
         popupMenu.show() // Показываю менюшку
 
     }
-    override fun editModeOn(binding: CardPostBinding) {
+    override fun editModeOn(binding: CardPostBinding,content:String) {
         with(binding)
         {
             editTextHeader.visibility = View.VISIBLE
             textViewHeader.visibility = View.INVISIBLE
 
+            if (content!="")
+                editTextContent.setText(content)
             editTextContent.visibility = View.VISIBLE
             textViewContent.visibility = View.INVISIBLE
 

@@ -1,6 +1,5 @@
 package com.fedorkasper.application
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,16 +21,21 @@ class PostViewHolder(private val binding: CardPostBinding)
     :RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post,listener: PostAdapter.Listener) {
         binding.apply {
+
             textViewHeader.text = post.header
             editTextHeader.setText(post.header)
+
             textViewDataTime.text = post.dateTime.toString().split("GMT")[0]
+
             textViewContent.text = post.content
             editTextContent.setText(post.content)
 
             textViewAmountLike.text = convertToString(post.amountLikes)
             textViewAmountShare.text = convertToString(post.amountShares)
+            textViewAmountViews.text = convertToString(post.amountViews)
 
             buttonLike.setImageResource(if (post.isLike) R.drawable.heart_press else R.drawable.heart_unpress)
+
             buttonLike.setOnClickListener {
                 listener.onClickLike(post)
             }
@@ -47,14 +51,14 @@ class PostViewHolder(private val binding: CardPostBinding)
             buttonSave.setOnClickListener {
                 listener.saveEditPost(post,binding)
             }
-            if (post.id==0) listener.editModeOn(binding)
+
+            if (post.id==0) listener.editModeOn(binding, "" )
         }
     }
 }
 class PostAdapter(
     private val listener: Listener
 ):ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return PostViewHolder(binding)
@@ -70,7 +74,7 @@ class PostAdapter(
         fun onClickMore(post:Post, view: View,binding: CardPostBinding)
         fun cancelEditPost(post:Post,binding: CardPostBinding)
         fun saveEditPost(post:Post, binding: CardPostBinding)
-        fun editModeOn(binding: CardPostBinding)
+        fun editModeOn(binding: CardPostBinding,content:String)
     }
 }
 private fun convertToString(count:Int):String{
