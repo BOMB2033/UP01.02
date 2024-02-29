@@ -22,6 +22,17 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        run {
+            val preferences = getPreferences(Context.MODE_PRIVATE)
+      //      if(preferences.getString("appName", "")=="")
+      //          preferences.edit().apply{
+       //             putString("appName","Kasper")
+       //             commit()
+       //         }
+            binding.textViewHeaderApp.text = preferences.getString("appName", "")
+
+        }
+
         isStartWhitShare() // Проверяет как запущено приложение,
         // обычно или с помощью поделиться другого приложения
 

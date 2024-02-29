@@ -53,6 +53,7 @@ class PostViewHolder(private val binding: CardPostBinding)
                 textViewContentURL.visibility = View.VISIBLE
                 textViewContentURL.text = post.url
                 editTextContentURL.setText(post.url)
+
                 imageButtonPlay.setOnClickListener{
                     val intent = Intent()
                     intent.setAction(Intent.ACTION_VIEW)

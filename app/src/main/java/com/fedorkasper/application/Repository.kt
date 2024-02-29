@@ -1,8 +1,13 @@
 package com.fedorkasper.application
 
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.Calendar
 import kotlin.random.Random
 
@@ -15,13 +20,25 @@ interface PostRepository {
     fun editById(id: Int, header: String, content: String, url:String)
 }
 
-class PostRepositoryInMemoryImpl : PostRepository {
+class PostRepositoryInMemoryImpl(context: Context) : PostRepository {
+
+    private val gson = Gson()
+    private val prefs =  context.getSharedPreferences("repo", Context.MODE_PRIVATE)
+    private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
+    private val key = "posts"
+    private var nxtId = 1
     private var posts = getPosts()
     private val data = MutableLiveData(posts)
 
+    init {
+        prefs.getString(key, null)?.let {
+            posts = gson.fromJson(it,type)
+            data.value = posts
+        }
+    }
+
     override fun getAll(): LiveData<List<Post>> = data
     override fun likeById(id:Int) {
-
         posts = posts.map{
             if(it.id != id) it else{
                 if (it.isLike)
@@ -32,6 +49,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             }
         }
         data.value = posts
+        sync()
     }
     override fun shareById(id:Int) {
         posts = posts.map {
@@ -41,15 +59,14 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 it.copy(amountShares = it.amountShares + 10)
         }
         data.value = posts
+        sync()
     }
-
     override fun removeById(id: Int) {
         posts = posts.filter { it.id != id }
         data.value = posts
-
+        sync()
     }
-
-    override fun addPost(post: Post,string: String) {
+    override fun addPost(post: Post,string: String) { // Функция добавоения (должна быть объявлена в Post
         posts = listOf(
             post.copy(
                 id = 0,
@@ -62,8 +79,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             )
         ) + posts
         data.value = posts
+        sync()
     }
-
     override fun editById(id: Int, header: String, content: String, url: String) {
         posts = posts.map {
             if(it.id != id)
@@ -74,12 +91,19 @@ class PostRepositoryInMemoryImpl : PostRepository {
             }
         }
         data.value = posts
+        sync()
+    }
+    private fun sync(){
+        with(prefs.edit()){
+            putString(key, gson.toJson(posts))
+            apply()
+        }
     }
 }
 
 
-class PostViewModel : ViewModel() {
-    private val repository: PostRepository = PostRepositoryInMemoryImpl()
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositoryInMemoryImpl(application)
     val data = repository.getAll()
     private val edited = MutableLiveData(getEmptyPost())
     fun addPost(string: String){
