@@ -1,16 +1,12 @@
 package com.fedorkasper.application
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
-import androidx.core.view.get
-import com.bumptech.glide.Glide
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 import com.fedorkasper.application.databinding.CardPostBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -19,20 +15,38 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
     private val postViewModel: PostViewModel by viewModels()
+    private lateinit var binding: ActivityMain2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMain2Binding.inflate(layoutInflater)
-
-
+        binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        intent?.let {
-            if (it.action != Intent.ACTION_SEND){
-                return@let
-            }
 
-            val text = it.getStringExtra(Intent.EXTRA_TEXT)
-            if(text.isNullOrBlank())
+        isStartWhitShare() // Проверяет как запущено приложение,
+        // обычно или с помощью поделиться другого приложения
+
+        val adapter = PostAdapter(this) // Передаю MainActivity2, которая представленная как PostAdapter.Listener
+                                               // Для того что бы adapter мог вызывать функции которые написаны ниже
+        binding.buttonAddPost.setOnClickListener{ // Кнопка добавления поста
+            postViewModel.addPost("") // Добавляю пустой пост
+            binding.container.smoothScrollToPosition(-0) // Прокручиваю скролл в самый вверх
+        }
+        binding.container.adapter = adapter // Передаю адаптер нашему RecyclerView,
+        postViewModel.data.observe(this){  // observe - следит за изменениями
+            // Если произошли изменения в postViewModel.data,
+            // то будет происходить действие ниже
+            adapter.submitList(it) // ЛОЛОЛ ТРУ ляля Завтра грабим короля
+        }
+
+    }
+    private fun isStartWhitShare(){
+        /////  Если приложение запускается через передачу текстового сообщений
+        intent?.let {
+            if (it.action != Intent.ACTION_SEND) // Если запуск произведён стандартно (ACTION_MAIN)
+                return@let                        // То пропускаем нижний код
+
+            val text = it.getStringExtra(Intent.EXTRA_TEXT) // Получаем текст с которым поделились
+            if(text.isNullOrBlank()) //Если текста нет или "", то выводим сообщение и прерываемся
             {
                 Snackbar.make(binding.root, "Пусто лол", BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction("Окей"){
@@ -40,20 +54,10 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
                     }.show()
                 return@let
             }
-            postViewModel.addPost(text)
-            it.action = ""
+            postViewModel.addPost(text) // Добавляю новый пост, с полученным сообщением
+            it.action = Intent.ACTION_MAIN //Обнуляю статус передач, и НЕ закрываю приложене
         }
-
-
-        val adapter = PostAdapter(this)
-        binding.buttonAddPost.setOnClickListener{
-            postViewModel.addPost("")
-            binding.container.smoothScrollToPosition(-0)
-        }
-        binding.container.adapter = adapter
-        postViewModel.data.observe(this){ posts ->
-            adapter.submitList( posts)
-        }
+///////////////////////////////////////////////////////////////////////
     }
     override fun onClickLike(post: Post) {
        postViewModel.likeById(post.id)
