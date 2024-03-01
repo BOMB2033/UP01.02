@@ -4,51 +4,36 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
 import com.fedorkasper.application.databinding.ActivityMain2Binding
 import com.fedorkasper.application.databinding.CardPostBinding
+import com.fedorkasper.application.fragments.ListPostFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
-    private val postViewModel: PostViewModel by viewModels()
+class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
+    private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainActivity2 = this
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
+        binding.bottomNavigationView.setupWithNavController(navController)
 
-        run {
-            val preferences = getPreferences(Context.MODE_PRIVATE)
-      //      if(preferences.getString("appName", "")=="")
-      //          preferences.edit().apply{
-       //             putString("appName","Kasper")
-       //             commit()
-       //         }
-            binding.textViewHeaderApp.text = preferences.getString("appName", "")
+           // isStartWhitShare() // Проверяет как запущено приложение,
+            // обычно или с помощью поделиться другого приложения
 
-        }
-
-        isStartWhitShare() // Проверяет как запущено приложение,
-        // обычно или с помощью поделиться другого приложения
-
-        val adapter = PostAdapter(this) // Передаю MainActivity2, которая представленная как PostAdapter.Listener
-                                               // Для того что бы adapter мог вызывать функции которые написаны ниже
-        binding.buttonAddPost.setOnClickListener{ // Кнопка добавления поста
-            postViewModel.addPost("") // Добавляю пустой пост
-            binding.container.smoothScrollToPosition(-0) // Прокручиваю скролл в самый вверх
-        }
-        binding.container.adapter = adapter // Передаю адаптер нашему RecyclerView,
-        postViewModel.data.observe(this){  // observe - следит за изменениями
-            // Если произошли изменения в postViewModel.data,
-            // то будет происходить действие ниже
-            adapter.submitList(it) // ЛОЛОЛ ТРУ ляля Завтра грабим короля
-        }
-
+        val preferences = getPreferences(Context.MODE_PRIVATE)
     }
     private fun isStartWhitShare(){
         /////  Если приложение запускается через передачу текстового сообщений
@@ -65,98 +50,15 @@ class MainActivity2 : AppCompatActivity(),PostAdapter.Listener {
                     }.show()
                 return@let
             }
-            postViewModel.addPost(text) // Добавляю новый пост, с полученным сообщением
+//            val fragment: ListPostFragment =
+//                supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as ListPostFragment
+//            if (fragment != null) fragment.appPost(text)
+//            else
+//                Snackbar.make(binding.root, "fragment не найден", BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                    .show()
+            //listPostFragment.appPost(text) // Добавляю новый пост, с полученным сообщением
             it.action = Intent.ACTION_MAIN //Обнуляю статус передач, и НЕ закрываю приложене
         }
 ///////////////////////////////////////////////////////////////////////
     }
-    override fun onClickLike(post: Post) {
-       postViewModel.likeById(post.id)
-    }
-    override fun onClickShare(post: Post) {
-        postViewModel.shareById(post.id)
-
-        val intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,post.header+"\n"+post.content+"\n"+post.url)
-            type = "text/plain"
-        }
-
-        val shareIntent = Intent.createChooser(intent, "Поделиться")
-        startActivity(shareIntent)
-
-    }
-    override fun onClickMore(post:Post, view: View, binding: CardPostBinding) { //Собыите нажатие на кнопку меню
-
-        val popupMenu = PopupMenu(this,view) //Объявление объекта меню
-
-        popupMenu.inflate(R.menu.popup_menu_post) //Указываю на каком лайоуте она будет показываться
-
-        popupMenu.setOnMenuItemClickListener { //Слушатель нажиманий на итемы
-            when(it.itemId)
-            {
-                R.id.menu_item_delete -> postViewModel.removeById(post.id) //Удаление
-                R.id.menu_item_edit -> editModeOn(binding,"") //Редактирование
-            }
-            true //Просто хз, ноу комент
-
-        }
-
-        popupMenu.show() // Показываю менюшку
-
-    }
-    override fun editModeOn(binding: CardPostBinding,content:String) {
-        with(binding)
-        {
-            editTextHeader.visibility = View.VISIBLE
-            textViewHeader.visibility = View.INVISIBLE
-
-
-
-            if (content!="")
-                editTextContent.setText(content)
-            editTextContent.visibility = View.VISIBLE
-            textViewContent.visibility = View.INVISIBLE
-
-            editTextContentURL.visibility = View.VISIBLE
-            textViewContentURL.visibility = View.INVISIBLE
-
-            constraintEdit.visibility = View.VISIBLE
-            constraintLayoutLikeShareSees.visibility = View.GONE
-        }
-
-    }
-    override fun cancelEditPost(post: Post,binding: CardPostBinding) {
-        with(binding)
-        {
-            editTextHeader.visibility = View.INVISIBLE
-            textViewHeader.visibility = View.VISIBLE
-
-            editTextContent.visibility = View.INVISIBLE
-            textViewContent.visibility = View.VISIBLE
-
-            editTextContentURL.visibility = View.INVISIBLE
-            textViewContentURL.visibility = View.VISIBLE
-
-            constraintEdit.visibility = View.GONE
-            constraintLayoutLikeShareSees.visibility = View.VISIBLE
-        }
-        if(binding.editTextHeader.text.toString() == "" && binding.editTextContent.text.toString() == "")
-            postViewModel.removeById(post.id)
-    }
-
-    override fun saveEditPost(post: Post, binding: CardPostBinding) {
-        with(binding)
-        {
-            postViewModel.editById(
-                post.id,
-                binding.editTextHeader.text.toString(),
-                binding.editTextContent.text.toString(),
-                binding.editTextContentURL.text.toString()
-            )
-        }
-
-        cancelEditPost(post,binding)
-    }
-
 }
