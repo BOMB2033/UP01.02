@@ -2,23 +2,22 @@ package com.fedorkasper.application.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.fedorkasper.application.MainActivity2
 import com.fedorkasper.application.Post
 import com.fedorkasper.application.PostAdapter
 import com.fedorkasper.application.PostViewModel
 import com.fedorkasper.application.R
 import com.fedorkasper.application.databinding.CardPostBinding
 import com.fedorkasper.application.databinding.FragmentListPostBinding
+import com.fedorkasper.application.listPostFragment
 import com.fedorkasper.application.mainActivity2
+import com.fedorkasper.application.profileFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
@@ -30,13 +29,12 @@ class ListPostFragment : Fragment(), PostAdapter.Listener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment\
         binding = FragmentListPostBinding.inflate(layoutInflater,container,false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        listPostFragment = this
         isStartWhitShare()
 
 
@@ -96,10 +94,6 @@ class ListPostFragment : Fragment(), PostAdapter.Listener {
         }
 ///////////////////////////////////////////////////////////////////////
     }
-    fun appPost(string: String){
-        postViewModel.addPost(string)
-    }
-
     override fun onClickLike(post: Post) {
         postViewModel.likeById(post.id)
     }
@@ -108,7 +102,7 @@ class ListPostFragment : Fragment(), PostAdapter.Listener {
 
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,post.header+"\n"+post.content+"\n"+post.url)
+            putExtra(Intent.EXTRA_TEXT,post.author+"\n"+post.content+"\n"+post.url)
             type = "text/plain"
         }
 
@@ -163,7 +157,7 @@ class ListPostFragment : Fragment(), PostAdapter.Listener {
             editTextContent.visibility = View.INVISIBLE
             textViewContent.visibility = View.VISIBLE
 
-            editTextContentURL.visibility = View.INVISIBLE
+            editTextContentURL.visibility = View.GONE
             textViewContentURL.visibility = View.VISIBLE
 
             constraintEdit.visibility = View.GONE

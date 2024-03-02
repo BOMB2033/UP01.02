@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,11 +31,14 @@ class PostViewHolder(private val binding: CardPostBinding)
     fun bind(post: Post,listener: PostAdapter.Listener) {
         binding.apply {
 
-            textViewHeader.text = post.header
-            editTextHeader.setText(post.header)
+            textViewHeader.text = post.author
+            editTextHeader.setText(post.author)
 
             textViewDataTime.text = post.dateTime.toString().split("GMT")[0]
-
+            root.setOnClickListener {
+                if (post.author == "Kasper")
+                it.findNavController().navigate(R.id.action_nav_button_item_list_posts_to_nav_button_item_profile)
+            }
             textViewContent.text = post.content
             editTextContent.setText(post.content)
 
@@ -73,6 +77,7 @@ class PostViewHolder(private val binding: CardPostBinding)
                 imageViewImage.visibility = View.GONE
                 imageButtonPlay.visibility = View.GONE
                 textViewContentURL.visibility = View.GONE
+                editTextContentURL.visibility = View.GONE
                 editTextContentURL.setText("")
 
             }

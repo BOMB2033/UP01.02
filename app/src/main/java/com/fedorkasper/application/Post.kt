@@ -5,7 +5,7 @@ import java.util.Date
 data class Post(
     var id:Int,
     var icon:Int,
-    var header:String,
+    var author:String,
     var content:String,
     var url:String,
     val dateTime: Date,
@@ -14,4 +14,4 @@ data class Post(
     var amountViews:Int,
     var isLike:Boolean,
 
-)
+    )

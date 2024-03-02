@@ -9,7 +9,11 @@
         android:id="@+id/nav_button_item_list_posts"
         android:name="com.fedorkasper.application.fragments.ListPostFragment"
         android:label="fragment_list_post"
-        tools:layout="@layout/fragment_list_post" />
+        tools:layout="@layout/fragment_list_post" >
+        <action
+            android:id="@+id/action_nav_button_item_list_posts_to_nav_button_item_profile"
+            app:destination="@id/nav_button_item_profile" />
+    </fragment>
     <fragment
         android:id="@+id/nav_button_item_profile"
         android:name="com.fedorkasper.application.fragments.ProfileFragment"

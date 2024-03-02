@@ -9,58 +9,72 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp"
+        android:layout_margin="10dp"
         android:background="@drawable/background_shadow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/background_shadow_only_bottom"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView android:id="@+id/imageViewIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/can_t_open_image"
+                android:src="@drawable/img_avatar"
+                android:scaleType="centerInside"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView android:id="@+id/textViewHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                android:text="Kasper"
+                app:layout_constraintTop_toTopOf="@+id/imageViewIcon"
+                app:layout_constraintBottom_toTopOf="@id/textViewDataTime"
+                app:layout_constraintStart_toEndOf="@id/imageViewIcon"/>
+            <EditText android:id="@+id/editTextHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="Введите текст заголовка"
+                android:visibility="invisible"
+                android:layout_marginStart="10dp"
+                android:text="Kasper"
+                app:layout_constraintTop_toTopOf="@+id/imageViewIcon"
+                app:layout_constraintBottom_toTopOf="@id/textViewDataTime"
+                app:layout_constraintStart_toEndOf="@id/imageViewIcon"/>
+            <com.google.android.material.textview.MaterialTextView android:id="@+id/textViewDataTime"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
+                android:text="Добрый, всегда рад помочь!"
+                android:shadowColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeader"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+                app:layout_constraintStart_toEndOf="@id/imageViewIcon"/>
 
-    <ImageButton
-        android:id="@+id/imageButtonAvatar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_shadow"
-        android:padding="10dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textViewNameAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Александр мекелянджио"
-        android:textSize="20sp"
-        android:textAllCaps="true"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonAvatar"
-        app:layout_constraintStart_toStartOf="@+id/imageButtonAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonAvatar" />
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_shadow_only_top"
-            app:layout_constraintTop_toBottomOf="@id/textViewNameAuthor"
+            android:background="@drawable/background_shadow"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/card_post"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-            <TextView
-                android:id="@+id/textViewAboutAuthor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Добрый, дружелюбный человек) "
-                android:textSize="18sp"
-                android:layout_margin="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
+
     private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +31,7 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(binding.root)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         binding.bottomNavigationView.setupWithNavController(navController)
-           // isStartWhitShare() // Проверяет как запущено приложение,
-            // обычно или с помощью поделиться другого приложения
 
-        val preferences = getPreferences(Context.MODE_PRIVATE)
     }
 
 

@@ -3,7 +3,6 @@ package com.fedorkasper.application
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
@@ -71,6 +70,7 @@ class PostRepositoryInMemoryImpl(context: Context) : PostRepository {
             post.copy(
                 id = 0,
                 dateTime = Calendar.getInstance().time,
+                author = "Kasper",
                 content = string,
                 amountLikes = randomNumb(),
                 amountShares = randomNumb(),
@@ -87,7 +87,7 @@ class PostRepositoryInMemoryImpl(context: Context) : PostRepository {
                 it
             else {
                 if (it.id == 0 ) it.id = nextId(posts)
-                it.copy(header = header, content = content, url = url)
+                it.copy(author = header, content = content, url = url)
             }
         }
         data.value = posts

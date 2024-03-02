@@ -7,7 +7,7 @@ fun getPosts():List<Post>{
         Post(
             id = 2,
             R.drawable.img_avatar_smr,
-            header = "АСМР",
+            author = "АСМР",
             content = "АСМР (автономная сенсорная меридиональная реакция) — это, по данным Кембриджского словаря, " +
                     "приятное покалывание, которое люди чувствуют в ответ на звуковые и визуальные стимулы (шепот, " +
                     "движения кисти, жевание, скрежет, постукивания и т.д.). Это ощущение еще может сопровождаться чувством " +
@@ -22,7 +22,7 @@ fun getPosts():List<Post>{
         Post(
             id = 1,
             R.mipmap.ic_launcher,
-            header = "Адаптеры в Android",
+            author = "Адаптеры в Android",
             content = "Адаптеры в Android упрощают связывание данных с элементом управления. Они используются при работе с виджетами, которые дополняют android.widget.AdapterView: ListView, ExpandableListView, GridView, Spinner, Gallery, а также в активности ListActivity и др.\n" +
                     "\n" +
                     "Примеры готовых адаптеров:\n" +
