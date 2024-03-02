@@ -37,7 +37,13 @@ class PostViewHolder(private val binding: CardPostBinding)
             textViewDataTime.text = post.dateTime.toString().split("GMT")[0]
             root.setOnClickListener {
                 if (post.author == "Kasper")
-                it.findNavController().navigate(R.id.action_nav_button_item_list_posts_to_nav_button_item_profile)
+                    try {
+                        it.findNavController().navigate(R.id.action_nav_button_item_list_posts_to_nav_button_item_profile)
+
+                    }catch (exeption:Exception)
+                    {
+
+                    }
             }
             textViewContent.text = post.content
             editTextContent.setText(post.content)
