@@ -2,13 +2,16 @@ package com.fedorkasper.application.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.fedorkasper.application.MainActivity2
 import com.fedorkasper.application.Post
 import com.fedorkasper.application.PostAdapter
 import com.fedorkasper.application.PostViewModel
@@ -66,6 +69,7 @@ class ListPostFragment : Fragment(), PostAdapter.Listener {
             adapter.submitList(it) // ЛОЛОЛ ТРУ ляля Завтра грабим короля
         }
     }
+
     private fun isStartWhitShare(){
         /////  Если приложение запускается через передачу текстового сообщений
         mainActivity2.intent?.let {

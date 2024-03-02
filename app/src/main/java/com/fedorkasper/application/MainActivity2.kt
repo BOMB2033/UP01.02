@@ -2,6 +2,7 @@ package com.fedorkasper.application
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -29,12 +30,13 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(binding.root)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         binding.bottomNavigationView.setupWithNavController(navController)
-
            // isStartWhitShare() // Проверяет как запущено приложение,
             // обычно или с помощью поделиться другого приложения
 
         val preferences = getPreferences(Context.MODE_PRIVATE)
     }
+
+
     private fun isStartWhitShare(){
         /////  Если приложение запускается через передачу текстового сообщений
         intent?.let {
